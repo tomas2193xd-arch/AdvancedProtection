@@ -60,10 +60,35 @@ public class HologramManager {
 
         useDecentHolograms = false;
 
+        // Clean up any orphaned holograms from previous sessions
+        cleanupOrphanedHolograms();
+
         // Iniciar tarea de actualización periódica
         startUpdateTask();
 
         return true;
+    }
+
+    /**
+     * Removes orphaned holograms from previous sessions
+     */
+    private void cleanupOrphanedHolograms() {
+        int removed = 0;
+        for (org.bukkit.World world : Bukkit.getWorlds()) {
+            for (org.bukkit.entity.Entity entity : world.getEntities()) {
+                if (entity instanceof TextDisplay) {
+                    TextDisplay display = (TextDisplay) entity;
+                    // Remove invulnerable TextDisplays (our holograms)
+                    if (display.isInvulnerable()) {
+                        display.remove();
+                        removed++;
+                    }
+                }
+            }
+        }
+        if (removed > 0) {
+            plugin.getLogger().info("Cleaned up " + removed + " orphaned holograms from previous sessions.");
+        }
     }
 
     /**
@@ -158,12 +183,30 @@ public class HologramManager {
          * decentHologramIds.clear();
          * } else {
          */
+
+        // Remove holograms from memory
         for (TextDisplay display : nativeHolograms.values()) {
             if (!display.isDead()) {
                 display.remove();
             }
         }
         nativeHolograms.clear();
+
+        // CRITICAL: Also remove ALL orphaned TextDisplay entities from all worlds
+        // This prevents ghost holograms when plugin folder is deleted
+        for (org.bukkit.World world : Bukkit.getWorlds()) {
+            for (org.bukkit.entity.Entity entity : world.getEntities()) {
+                if (entity instanceof TextDisplay) {
+                    TextDisplay display = (TextDisplay) entity;
+                    // Check if it's our hologram by checking if it has our custom name pattern
+                    // or if it's invulnerable (our holograms are invulnerable)
+                    if (display.isInvulnerable()) {
+                        display.remove();
+                    }
+                }
+            }
+        }
+
         // }
     }
 

@@ -1,9 +1,9 @@
 name: AdvancedProtection
-version: 1.0
+version: 1.4
 main: com.crystalverse.advancedprotection.AdvancedProtection
 api-version: 1.19
 authors: [CrystalVerse]
-description: Plugin avanzado de protección de regiones.
+description: Advanced land protection plugin with granular permissions, holograms, and tax system.
 softdepend: [Vault, WorldGuard, PlaceholderAPI, DecentHolograms]
 
 commands:

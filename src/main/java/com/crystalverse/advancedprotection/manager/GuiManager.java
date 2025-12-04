@@ -3,6 +3,8 @@ package com.crystalverse.advancedprotection.manager;
 import com.crystalverse.advancedprotection.AdvancedProtection;
 import com.crystalverse.advancedprotection.model.ProtectionBlock;
 import com.crystalverse.advancedprotection.model.ProtectionFlag;
+import com.crystalverse.advancedprotection.model.MemberPermission;
+import com.crystalverse.advancedprotection.model.MemberData;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -309,8 +311,11 @@ public class GuiManager implements Listener {
                 memberName = plugin.getConfigManager().getMessage("unknown_player");
 
             ItemStack item = createItem(Material.PLAYER_HEAD, ChatColor.YELLOW + memberName,
-                    replacePlaceholders(plugin.getConfigManager().getMessageList("gui.member_lore"),
-                            "%uuid%", memberId.toString().substring(0, 8)));
+                    Arrays.asList(
+                            ChatColor.GRAY + "UUID: " + ChatColor.WHITE + memberId.toString().substring(0, 8),
+                            "",
+                            ChatColor.GREEN + "Left Click: " + ChatColor.WHITE + "Manage Permissions",
+                            ChatColor.RED + "Right Click: " + ChatColor.WHITE + "Remove Member"));
 
             SkullMeta meta = (SkullMeta) item.getItemMeta();
             if (meta != null) {
@@ -443,8 +448,114 @@ public class GuiManager implements Listener {
             inv.setItem(slots[i], item);
         }
 
-        addBackButton(inv, 26); // Moved back button to corner to make space
+        addBackButton(inv, 26);
         player.openInventory(inv);
+    }
+
+    /**
+     * Opens the permissions management GUI for a specific member
+     */
+    public void openPermissionsMenu(Player player, ProtectionBlock protection, UUID memberId) {
+        setEditingProtection(player, protection);
+
+        String memberName = Bukkit.getOfflinePlayer(memberId).getName();
+        if (memberName == null)
+            memberName = "Unknown";
+
+        Inventory inv = Bukkit.createInventory(null, 54,
+                ChatColor.DARK_PURPLE + "Permissions: " + memberName);
+
+        // Fill with glass
+        for (int i = 0; i < 54; i++) {
+            inv.setItem(i, createItem(Material.BLACK_STAINED_GLASS_PANE, " "));
+        }
+
+        // Get or create member data
+        MemberData memberData = protection.getMemberData(memberId);
+        if (memberData == null) {
+            memberData = new MemberData(memberId);
+            memberData.applyRole("member");
+            protection.setMemberPermissions(memberId, memberData);
+        }
+
+        // Permission icons (2 rows: icon on top, status below)
+        displayPermissionIcon(inv, 10, MemberPermission.BUILD, memberData, Material.DIAMOND_PICKAXE);
+        displayPermissionIcon(inv, 11, MemberPermission.PLACE_BLOCKS, memberData, Material.GRASS_BLOCK);
+        displayPermissionIcon(inv, 12, MemberPermission.BREAK_BLOCKS, memberData, Material.IRON_PICKAXE);
+        displayPermissionIcon(inv, 13, MemberPermission.INTERACT, memberData, Material.OAK_DOOR);
+        displayPermissionIcon(inv, 14, MemberPermission.CONTAINER_ACCESS, memberData, Material.CHEST);
+        displayPermissionIcon(inv, 15, MemberPermission.MANAGE_MEMBERS, memberData, Material.PLAYER_HEAD);
+        displayPermissionIcon(inv, 16, MemberPermission.MANAGE_FLAGS, memberData, Material.WHITE_BANNER);
+
+        displayPermissionIcon(inv, 19, MemberPermission.MANAGE_SETTINGS, memberData, Material.COMPARATOR);
+        displayPermissionIcon(inv, 20, MemberPermission.TELEPORT, memberData, Material.ENDER_PEARL);
+        displayPermissionIcon(inv, 21, MemberPermission.FULL_ACCESS, memberData, Material.NETHER_STAR);
+
+        // Predefined roles header
+        inv.setItem(31, createItem(Material.NAME_TAG, ChatColor.GOLD + "Quick Roles",
+                Arrays.asList(ChatColor.GRAY + "Click a role to apply its permissions")));
+
+        // Role buttons
+        inv.setItem(37, createItem(Material.LEATHER_BOOTS, ChatColor.WHITE + "Visitor",
+                Arrays.asList(ChatColor.GRAY + "Basic visitor access", "",
+                        ChatColor.YELLOW + "• Interact", "", ChatColor.GREEN + "Click to apply!")));
+
+        inv.setItem(38, createItem(Material.IRON_SWORD, ChatColor.GREEN + "Member",
+                Arrays.asList(ChatColor.GRAY + "Standard member", "",
+                        ChatColor.YELLOW + "• Build & Break", ChatColor.YELLOW + "• Interact",
+                        ChatColor.YELLOW + "• Containers", "", ChatColor.GREEN + "Click to apply!")));
+
+        inv.setItem(39, createItem(Material.GOLDEN_PICKAXE, ChatColor.YELLOW + "Builder",
+                Arrays.asList(ChatColor.GRAY + "Extended building", "",
+                        ChatColor.YELLOW + "• All Member perms", ChatColor.YELLOW + "• Place/Break control",
+                        "", ChatColor.GREEN + "Click to apply!")));
+
+        inv.setItem(40, createItem(Material.DIAMOND_SWORD, ChatColor.AQUA + "Moderator",
+                Arrays.asList(ChatColor.GRAY + "Can manage members", "",
+                        ChatColor.YELLOW + "• All Builder perms", ChatColor.YELLOW + "• Manage Members",
+                        "", ChatColor.GREEN + "Click to apply!")));
+
+        inv.setItem(41, createItem(Material.NETHER_STAR, ChatColor.LIGHT_PURPLE + "Co-Owner",
+                Arrays.asList(ChatColor.GRAY + "Full access", "",
+                        ChatColor.YELLOW + "• FULL ACCESS", "", ChatColor.GREEN + "Click to apply!")));
+
+        // Current role display
+        String currentRole = memberData.getRoleName() != null ? memberData.getRoleName() : "Custom";
+        inv.setItem(4, createItem(Material.PAPER,
+                ChatColor.AQUA + "Current Role: " + ChatColor.YELLOW + currentRole,
+                Arrays.asList(ChatColor.GRAY + "Member: " + ChatColor.WHITE + memberName,
+                        ChatColor.GRAY + "Active Permissions: " + ChatColor.GREEN
+                                + memberData.getPermissions().size())));
+
+        addBackButton(inv, 49);
+        player.openInventory(inv);
+    }
+
+    /**
+     * Displays a permission icon with toggle status
+     */
+    private void displayPermissionIcon(Inventory inv, int slot,
+            MemberPermission permission, MemberData memberData, Material iconMaterial) {
+
+        boolean hasPermission = memberData.hasPermission(permission);
+
+        // Icon on top row
+        List<String> iconLore = new ArrayList<>();
+        iconLore.add(ChatColor.GRAY + permission.getDescription());
+        iconLore.add("");
+        iconLore.add(hasPermission ? ChatColor.GREEN + "✓ ENABLED" : ChatColor.RED + "✗ DISABLED");
+        iconLore.add("");
+        iconLore.add(ChatColor.YELLOW + "Click to toggle!");
+
+        ItemStack icon = createItem(iconMaterial, ChatColor.AQUA + permission.getDisplayName(), iconLore);
+        inv.setItem(slot, icon);
+
+        // Status indicator on bottom row
+        Material statusMaterial = hasPermission ? Material.LIME_STAINED_GLASS_PANE : Material.RED_STAINED_GLASS_PANE;
+        String statusText = hasPermission ? ChatColor.GREEN + "✓ ENABLED" : ChatColor.RED + "✗ DISABLED";
+
+        ItemStack status = createItem(statusMaterial, statusText, Arrays.asList(ChatColor.YELLOW + "Click to toggle!"));
+        inv.setItem(slot + 9, status);
     }
 
     // --- EVENTOS ---
@@ -665,22 +776,32 @@ public class GuiManager implements Listener {
                 if (editingProtection != null)
                     openAddMemberMenu(player, editingProtection);
             } else if (event.getCurrentItem().getType() == Material.PLAYER_HEAD && editingProtection != null) {
-                // Expulsar miembro
+                // Click on member head
                 String playerName = ChatColor.stripColor(event.getCurrentItem().getItemMeta().getDisplayName());
                 org.bukkit.OfflinePlayer target = Bukkit.getOfflinePlayer(playerName);
+
                 if (target != null) {
-                    editingProtection.removeMember(target.getUniqueId());
-                    plugin.getProtectionService().saveProtection(editingProtection); // Guardar
+                    // Right click = Remove member
+                    // Left click = Manage permissions
+                    if (event.getClick() == org.bukkit.event.inventory.ClickType.RIGHT) {
+                        // Remove member
+                        editingProtection.removeMember(target.getUniqueId());
+                        editingProtection.removeMemberPermissions(target.getUniqueId());
+                        plugin.getProtectionService().saveProtection(editingProtection);
 
-                    // Actualizar holograma
-                    if (plugin.getHologramManager() != null && plugin.getHologramManager().isEnabled()) {
-                        plugin.getHologramManager().updateHologram(editingProtection);
+                        // Update hologram
+                        if (plugin.getHologramManager() != null && plugin.getHologramManager().isEnabled()) {
+                            plugin.getHologramManager().updateHologram(editingProtection);
+                        }
+
+                        player.sendMessage(ChatColor.GREEN + "✓ Removed member: " + ChatColor.WHITE + playerName);
+                        player.playSound(player.getLocation(), Sound.ENTITY_VILLAGER_NO, 1f, 1f);
+                        openMembersMenu(player, editingProtection);
+                    } else {
+                        // Open permissions menu (left click)
+                        openPermissionsMenu(player, editingProtection, target.getUniqueId());
+                        player.playSound(player.getLocation(), Sound.UI_BUTTON_CLICK, 1f, 1f);
                     }
-
-                    player.sendMessage(
-                            plugin.getConfigManager().getMessage("member_kick").replace("%player%", playerName));
-                    player.playSound(player.getLocation(), Sound.ENTITY_VILLAGER_NO, 1f, 1f);
-                    openMembersMenu(player, editingProtection);
                 }
             }
         } else if (title.equals(getTitle("add_member_title"))) {
@@ -749,6 +870,101 @@ public class GuiManager implements Listener {
                 }
             } else if (event.getSlot() == 40) { // Back Button
                 openPlayerProtections(player);
+            }
+        } else if (title.startsWith(ChatColor.DARK_PURPLE + "Permissions: ")) {
+            event.setCancelled(true);
+
+            if (editingProtection == null) {
+                player.closeInventory();
+                return;
+            }
+
+            // Extract member name from title
+            String memberName = title.replace(ChatColor.DARK_PURPLE + "Permissions: ", "");
+            org.bukkit.OfflinePlayer target = Bukkit.getOfflinePlayer(memberName);
+
+            if (target == null) {
+                player.closeInventory();
+                return;
+            }
+
+            UUID memberId = target.getUniqueId();
+            MemberData memberData = editingProtection.getMemberData(memberId);
+
+            if (memberData == null) {
+                memberData = new MemberData(memberId);
+                editingProtection.setMemberPermissions(memberId, memberData);
+            }
+
+            // Back button
+            if (event.getSlot() == 49) {
+                openMembersMenu(player, editingProtection);
+                return;
+            }
+
+            // Permission toggles (slots 10-21 for icons and 19-30 for status indicators)
+            int slot = event.getSlot();
+            MemberPermission toggledPerm = null;
+
+            // Map slots to permissions (both icon row and status row)
+            if (slot == 10 || slot == 19)
+                toggledPerm = MemberPermission.BUILD;
+            else if (slot == 11 || slot == 20)
+                toggledPerm = MemberPermission.PLACE_BLOCKS;
+            else if (slot == 12 || slot == 21)
+                toggledPerm = MemberPermission.BREAK_BLOCKS;
+            else if (slot == 13 || slot == 22)
+                toggledPerm = MemberPermission.INTERACT;
+            else if (slot == 14 || slot == 23)
+                toggledPerm = MemberPermission.CONTAINER_ACCESS;
+            else if (slot == 15 || slot == 24)
+                toggledPerm = MemberPermission.MANAGE_MEMBERS;
+            else if (slot == 16 || slot == 25)
+                toggledPerm = MemberPermission.MANAGE_FLAGS;
+            else if (slot == 19 || slot == 28)
+                toggledPerm = MemberPermission.MANAGE_SETTINGS;
+            else if (slot == 20 || slot == 29)
+                toggledPerm = MemberPermission.TELEPORT;
+            else if (slot == 21 || slot == 30)
+                toggledPerm = MemberPermission.FULL_ACCESS;
+
+            if (toggledPerm != null) {
+                // Toggle permission
+                if (memberData.hasPermission(toggledPerm)) {
+                    memberData.removePermission(toggledPerm);
+                    player.sendMessage(ChatColor.RED + "✗ Disabled: " + ChatColor.WHITE + toggledPerm.getDisplayName());
+                } else {
+                    memberData.addPermission(toggledPerm);
+                    player.sendMessage(
+                            ChatColor.GREEN + "✓ Enabled: " + ChatColor.WHITE + toggledPerm.getDisplayName());
+                }
+
+                memberData.setRoleName("Custom"); // Mark as custom when manually edited
+                plugin.getProtectionService().saveProtection(editingProtection);
+                player.playSound(player.getLocation(), Sound.UI_BUTTON_CLICK, 1f, 1f);
+                openPermissionsMenu(player, editingProtection, memberId); // Refresh
+                return;
+            }
+
+            // Role buttons (slots 37-41)
+            String roleName = null;
+            if (slot == 37)
+                roleName = "visitor";
+            else if (slot == 38)
+                roleName = "member";
+            else if (slot == 39)
+                roleName = "builder";
+            else if (slot == 40)
+                roleName = "moderator";
+            else if (slot == 41)
+                roleName = "co-owner";
+
+            if (roleName != null) {
+                memberData.applyRole(roleName);
+                plugin.getProtectionService().saveProtection(editingProtection);
+                player.sendMessage(ChatColor.GREEN + "✓ Applied role: " + ChatColor.YELLOW + roleName.toUpperCase());
+                player.playSound(player.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1f, 1f);
+                openPermissionsMenu(player, editingProtection, memberId); // Refresh
             }
         } else if (title.startsWith(ChatColor.DARK_RED + "Admin Manager")) {
             event.setCancelled(true);

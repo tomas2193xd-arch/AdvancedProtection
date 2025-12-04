@@ -1,14 +1,15 @@
 # ⚔️ AdvancedProtection
 
 [![Spigot](https://img.shields.io/badge/Spigot-1.19.4+-orange.svg)](https://www.spigotmc.org/)
-[![Version](https://img.shields.io/badge/version-1.0-blue.svg)](https://github.com/CrystalVerse/AdvancedProtection)
+[![Version](https://img.shields.io/badge/version-1.4-blue.svg)](https://github.com/tomas2193xd-arch/AdvancedProtection/releases)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
+[![Discord](https://img.shields.io/badge/Discord-Tomas2193-7289DA.svg)](https://discord.gg/yourserver)
 
-> **The Ultimate Land Protection Plugin for Minecraft 1.19+**
+> **The Ultimate Land Protection Plugin for Minecraft 1.19+ with Granular Permissions**
 
 ![Banner](https://imgur.com/a/AVosdM3)
 
-📹 **[Watch Demo Video](https://youtu.be/nc31xFtYS-c)**
+📹 **[Watch Demo Video](https://youtu.be/nc31xFtYS-c)** | 💬 **Discord:** Tomas2193
 
 ---
 

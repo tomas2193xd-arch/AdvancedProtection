@@ -2,6 +2,89 @@
 
 All notable changes to AdvancedProtection will be documented in this file.
 
+## [1.4.0] - 2024-12-04
+
+### 🎉 Major Update - Granular Permissions System
+
+#### ✨ Features Added
+- **Complete Granular Permission System**
+  - Visual GUI for managing individual member permissions
+  - 10 different permission types (Build, Place, Break, Interact, Containers, Manage Members, etc.)
+  - 5 predefined roles (Visitor, Member, Builder, Moderator, Co-Owner)
+  - Real-time permission toggle with visual feedback
+  - Custom role support when permissions are manually edited
+  - Full persistence in JSON storage
+  - Left-click member to manage permissions, right-click to remove
+
+- **Enhanced Member Management**
+  - Visual permission indicators (green/red status)
+  - Quick role application buttons
+  - Current role display with permission count
+  - Instant menu refresh on changes
+
+#### 🐛 Bug Fixes
+- Fixed ghost holograms persisting after plugin folder deletion
+- Added automatic cleanup of orphaned TextDisplay entities on plugin start
+- Improved hologram removal on plugin shutdown
+- Fixed hologram state synchronization issues
+
+#### 🔧 Technical Improvements
+- Enhanced JSON persistence for MemberData
+- Better memory management for hologram entities
+- Improved entity cleanup procedures
+- More robust permission checking system
+
+---
+
+## [1.3.0] - 2024-12-03
+
+### 🌐 Internationalization Update
+
+#### ✨ Features
+- Complete English translation
+- Improved Spanish translations
+- Language switcher in config
+- Translated all GUI messages
+- Translated console messages
+
+#### 🐛 Bug Fixes
+- Fixed excessive debug messages in console
+- Cleaned up spam logs in GuiManager
+- Improved error messages
+
+---
+
+## [1.2.0] - 2024-12-03
+
+### 🎨 Visual Effects Update
+
+#### ✨ Features
+- Hologram toggle system
+- Enhanced visual effects manager
+- 3D rotating crystal borders
+- Improved particle effects
+- Custom hologram formats
+
+#### 🐛 Bug Fixes
+- Fixed hologram duplication issues
+- Resolved hologram persistence problems
+- Fixed visual effect conflicts
+
+---
+
+## [1.1.0] - 2024-12-03
+
+### 💰 Tax System Update
+
+#### ✨ Features
+- Automatic tax collection system
+- Configurable tax rates per level
+- Grace period implementation
+- Multi-tier warning notifications
+- Login reminders for overdue taxes
+
+---
+
 ## [1.0.0] - 2024-12-03
 
 ### 🎉 Initial Release
