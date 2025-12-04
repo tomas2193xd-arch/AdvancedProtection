@@ -1,0 +1,255 @@
+# ═══════════════════════════════════════════════════════════
+#                ADVANCEDPROTECTION - PERMISSIONS GUIDE
+#                              v1.0
+# ═══════════════════════════════════════════════════════════
+
+═══════════════════════════════════════════════════════════
+                      BASIC PERMISSIONS
+═══════════════════════════════════════════════════════════
+
+advancedprotection.use
+  Description: Basic permission to use the plugin
+  Default: true
+  Allows:
+    - /ap menu
+    - /ap help
+    - Create protections (if economy allows)
+    - Manage own protections
+
+═══════════════════════════════════════════════════════════
+                      ADMIN PERMISSIONS
+═══════════════════════════════════════════════════════════
+
+advancedprotection.admin
+  Description: Full admin access to all plugin features
+  Default: op
+  Allows:
+    - All user commands
+    - /ap reload
+    - /ap manager
+    - /ap logs
+    - Delete any protection
+    - Edit any protection
+    - Bypass all protections
+
+advancedprotection.admin.logs
+  Description: View protection logs
+  Default: op
+  Allows:
+    - /ap logs
+    - View protection history
+    - See all events
+
+advancedprotection.admin.manager
+  Description: Access admin management panel
+  Default: op
+  Allows:
+    - /ap manager
+    - View all protections
+    - Teleport to protections
+    - Delete protections
+    - Edit protection details
+
+advancedprotection.bypass
+  Description: Bypass all protection restrictions
+  Default: op
+  Allows:
+    - Build in any protection
+    - Break in any protection
+    - Use containers in any protection
+    - Bypass all flags
+    - Ignore member restrictions
+
+═══════════════════════════════════════════════════════════
+                    MEMBER PERMISSIONS
+                 (Granular System - Per Protection)
+═══════════════════════════════════════════════════════════
+
+These are NOT server permissions, but protection-level permissions
+that can be assigned to members individually:
+
+BUILD
+  Description: Build & Break blocks
+  Implies: PLACE_BLOCKS, BREAK_BLOCKS
+
+PLACE_BLOCKS
+  Description: Only allows placing blocks
+
+BREAK_BLOCKS
+  Description: Only allows breaking blocks
+
+INTERACT
+  Description: Allows using doors, buttons, levers
+
+CONTAINER_ACCESS
+  Description: Allows opening chests, furnaces, etc
+
+MANAGE_MEMBERS
+  Description: Can add/remove members
+
+MANAGE_FLAGS
+  Description: Can modify protection flags
+
+MANAGE_SETTINGS
+  Description: Can rename and change settings
+
+TELEPORT
+  Description: Can use /ap tp to this protection
+
+FULL_ACCESS
+  Description: All permissions (Co-Owner level)
+  Implies: ALL permissions above
+
+═══════════════════════════════════════════════════════════
+                      PREDEFINED ROLES
+═══════════════════════════════════════════════════════════
+
+visitor
+  Permissions:
+    - INTERACT
+
+member (default)
+  Permissions:
+    - BUILD
+    - INTERACT
+    - CONTAINER_ACCESS
+
+builder
+  Permissions:
+    - BUILD
+    - PLACE_BLOCKS
+    - BREAK_BLOCKS
+    - INTERACT
+    - CONTAINER_ACCESS
+
+moderator
+  Permissions:
+    - BUILD
+    - INTERACT
+    - CONTAINER_ACCESS
+    - MANAGE_MEMBERS
+
+co-owner
+  Permissions:
+    - FULL_ACCESS
+
+═══════════════════════════════════════════════════════════
+                   LUCKPERMS EXAMPLE SETUP
+═══════════════════════════════════════════════════════════
+
+# Default group (all players)
+/lp group default permission set advancedprotection.use true
+
+# Admin group
+/lp group admin permission set advancedprotection.admin true
+/lp group admin permission set advancedprotection.admin.logs true
+/lp group admin permission set advancedprotection.admin.manager true
+/lp group admin permission set advancedprotection.bypass true
+
+# Moderator group (can view logs only)
+/lp group moderator permission set advancedprotection.admin.logs true
+
+# VIP group (same as default, but could add custom perks)
+/lp group vip permission set advancedprotection.use true
+
+═══════════════════════════════════════════════════════════
+                 PERMISSION HIERARCHY
+═══════════════════════════════════════════════════════════
+
+Level 1: advancedprotection.use
+  ├─ Access plugin
+  ├─ Create protections
+  └─ Manage own protections
+
+Level 2: advancedprotection.admin.logs
+  ├─ Everything from Level 1
+  └─ View protection logs
+
+Level 3: advancedprotection.admin.manager
+  ├─ Everything from Level 2
+  ├─ Access admin panel
+  ├─ Manage all protections
+  └─ Delete any protection
+
+Level 4: advancedprotection.admin
+  ├─ Everything from Level 3
+  ├─ Reload plugin
+  └─ Full administrative control
+
+Level 5: advancedprotection.bypass
+  ├─ Everything from Level 4
+  └─ Bypass ALL protection restrictions
+
+═══════════════════════════════════════════════════════════
+                      WILDCARD PERMISSIONS
+═══════════════════════════════════════════════════════════
+
+advancedprotection.*
+  Description: Grants ALL permissions
+  Includes:
+    - advancedprotection.use
+    - advancedprotection.admin
+    - advancedprotection.admin.logs
+    - advancedprotection.admin.manager
+    - advancedprotection.bypass
+
+advancedprotection.admin.*
+  Description: Grants all admin permissions
+  Includes:
+    - advancedprotection.admin
+    - advancedprotection.admin.logs
+    - advancedprotection.admin.manager
+
+═══════════════════════════════════════════════════════════
+                      RECOMMENDED SETUP
+═══════════════════════════════════════════════════════════
+
+For a typical server:
+
+[Players - Default Group]
+  ✓ advancedprotection.use
+
+[Helpers - Helper Group]
+  ✓ advancedprotection.use
+  ✓ advancedprotection.admin.logs
+
+[Moderators - Moderator Group]
+  ✓ advancedprotection.use
+  ✓ advancedprotection.admin.logs
+  ✓ advancedprotection.admin.manager
+
+[Admins - Admin Group]
+  ✓ advancedprotection.*
+
+[Owner - Owner Group]
+  ✓ advancedprotection.*
+
+═══════════════════════════════════════════════════════════
+                         NOTES
+═══════════════════════════════════════════════════════════
+
+1. Server permissions control WHO can use commands
+2. Member permissions control WHAT members can do INSIDE a protection
+3. Protection owners ALWAYS have full control of their own protections
+4. advancedprotection.bypass allows admins to build anywhere
+5. Member permissions are configured in config.yml under 'permissions.roles'
+
+═══════════════════════════════════════════════════════════
+                    TROUBLESHOOTING
+═══════════════════════════════════════════════════════════
+
+Q: Players can't use /ap menu
+A: Make sure they have advancedprotection.use permission
+
+Q: Admins can't bypass protections
+A: Grant advancedprotection.bypass permission
+
+Q: Players see "No permission" when using commands
+A: Check if advancedprotection.use is set to true for their group
+
+Q: Admin panel won't open
+A: Ensure advancedprotection.admin.manager is granted
+
+═══════════════════════════════════════════════════════════
+              For more help, visit the Spigot page
+═══════════════════════════════════════════════════════════

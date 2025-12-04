@@ -1,0 +1,14 @@
+# Permisos de AdvancedProtection
+
+## Permisos de Administrador
+- `advancedprotection.admin`: Otorga acceso total a todas las protecciones, comandos de administración y bypass de restricciones.
+- `advancedprotection.bypass`: Permite romper y construir en cualquier protección sin ser miembro.
+- `advancedprotection.admin.manager`: Permite acceder al GUI de administración de protecciones (/ap manager).
+
+## Permisos de Jugador
+- `advancedprotection.create`: Permite crear protecciones (si se implementa en el futuro, por ahora es por defecto).
+- `advancedprotection.limit.<cantidad>`: Define el límite máximo de protecciones que un jugador puede tener. Ejemplo: `advancedprotection.limit.3`.
+
+## Notas
+- El vuelo en zonas protegidas requiere que la protección tenga la bandera `FLY` activada y que el jugador sea miembro o dueño de la protección.
+- Las mejoras de protección y cambios visuales requieren que el jugador sea dueño de la protección.

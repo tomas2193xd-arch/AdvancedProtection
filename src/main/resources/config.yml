@@ -1,0 +1,557 @@
+# =============================================================
+#   AdvancedProtection v1.0 - Configuration
+#   Developed by CrystalVerse
+# =============================================================
+
+# Plugin Language / Idioma del plugin
+# Options: en (English), es (Spanish)
+language: en
+
+# WorldGuard Integration
+worldguard:
+  # Enable WorldGuard compatibility
+  enabled: true
+  # Allow creating AdvancedProtection protections inside WorldGuard regions
+  allow_protections_in_regions: false
+  #  Priority: 'worldguard_first' = WorldGuard checks first, 'ap_first' = AdvancedProtection checks first
+  priority: worldguard_first
+
+# Holograms Configuration
+holograms:
+  # Enable holograms above protections
+  enabled: true
+  # Height offset above protection block (in blocks)
+  height_offset: 2.5
+  # Update interval in seconds (how often to refresh hologram data)
+  update_interval: 5
+  # Show custom name in hologram if protection has one
+  show_custom_name: true
+  # Hologram format (supports color codes with &)
+  # Placeholders: %owner%, %members%, %radius%, %level%, %level_name%, %custom_name%
+  format:
+    - "&8▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬"
+    - "&b⚔ &lProtección &b%level_name%"
+    - "&7Dueño: &f%owner%"
+    - "&7Miembros: &a%members%"
+    - "&7Radio: &e%radius%m"
+    - "&8▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬"
+
+# Economy Settings
+economy:
+  visual_effect_cost: 500.0
+
+# Member Permissions System
+permissions:
+  # Enable granular permissions per member
+  enabled: true
+  # Default role when adding a member
+  default_role: "member"
+  # Predefined roles (players can have custom permissions too)
+  roles:
+    visitor:
+      permissions:
+        - INTERACT
+    member:
+      permissions:
+        - BUILD
+        - INTERACT
+        - CONTAINER_ACCESS
+    builder:
+      permissions:
+        - BUILD
+        - INTERACT
+        - CONTAINER_ACCESS
+        - PLACE_BLOCKS
+        - BREAK_BLOCKS
+    moderator:
+      permissions:
+        - BUILD
+        - INTERACT
+        - CONTAINER_ACCESS
+        - MANAGE_MEMBERS
+    co-owner:
+      permissions:
+        - FULL_ACCESS
+
+# Tax/Rent System
+tax_system:
+  # Enable automatic taxes/rent for protections
+  enabled: false
+  # Tax interval in hours (how often players must pay)
+  interval_hours: 24
+  # Tax rate calculation mode: 'fixed' or 'percentage'
+  rate_mode: "percentage"
+  # If 'percentage': % of protection cost per interval
+  # If 'fixed': flat amount per interval
+  tax_rate: 5.0
+  # Grace period in hours before protection is deleted
+  grace_period_hours: 72
+  # Notifications
+  notifications:
+    # Warn player X hours before tax is due
+    warn_hours_before: [24, 12, 6, 1]
+    # Send notification on login if tax is overdue
+    warn_on_login: true
+  # Per-level custom tax rates (optional, overrides global rate)
+  level_rates:
+    1: 50.0 # Coal: 50/day
+    2: 125.0 # Iron: 125/day
+    3: 250.0 # Gold: 250/day
+    4: 500.0 # Diamond: 500/day
+    5: 1250.0 # Emerald: 1250/day
+    6: 2500.0 # Obsidian: 2500/day
+
+# Protection Settings
+protection:
+  default_limit: 3
+  levels:
+    1:
+      name: "&8Coal Protection"
+      material: COAL_BLOCK
+      radius: 10
+      cost: 1000.0
+    2:
+      name: "&fIron Protection"
+      material: IRON_BLOCK
+      radius: 20
+      cost: 5000.0
+    3:
+      name: "&6Gold Protection"
+      material: GOLD_BLOCK
+      radius: 30
+      cost: 10000.0
+    4:
+      name: "&bDiamond Protection"
+      material: DIAMOND_BLOCK
+      radius: 50
+      cost: 20000.0
+    5:
+      name: "&aEmerald Protection"
+      material: EMERALD_BLOCK
+      radius: 75
+      cost: 50000.0
+    6:
+      name: "&5Obsidian Protection"
+      material: OBSIDIAN
+      radius: 100
+      cost: 100000.0
+
+# Messages
+messages:
+  en:
+    prefix: "&8[&bAdvancedProtection&8] &7"
+    no_permission: "&cYou don't have permission to do this."
+    no_permission_language: "&cYou don't have permission to change the language."
+    economy_disabled: "&cEconomy is disabled. You cannot purchase protections."
+    insufficient_funds: "&cInsufficient funds! You need &a$%cost%&c."
+    visual_no_money: "&cYou don't have enough money to change the visual effect. Cost: &a$%cost%"
+    visual_bought: "&aVisual effect purchased for &e$%cost%&a."
+    shop_error: "&cAn error occurred while processing the transaction."
+
+    # Interaction Messages (Moved from GUI)
+    flag_changed: "&aFlag %flag% changed to %status%."
+    member_kick: "&cYou have kicked %player% from the protection."
+    member_added: "&aYou have added %player% to the protection."
+    unknown_player: "Unknown"
+    protection_bought: "&aYou bought a %name%!"
+    upgrade_success: "&aProtection upgraded to level %level%!"
+
+    # Protection Events
+    protection_placed: "&aProtection placed successfully! &7(Right-click to manage)"
+    protection_removed: "&cProtection removed successfully."
+    protection_too_close: "&cYou cannot place a protection here, it overlaps with another one."
+    protection_collision: "&cThis area overlaps with another protection."
+    protection_created: "&aProtection created successfully."
+    limit_reached: "&cYou have reached your protection limit (&e%current%/%max%&c)."
+    protection_cant_break: "&cYou cannot break this protection block."
+    protection_shift_break: "&cSneak (Shift) + Break to remove the protection."
+    area_protected: "&cThis area is protected."
+    pvp_disabled: "&cPvP is disabled in this area."
+    worldguard_region_conflict: "&cYou cannot create protections in WorldGuard region: &e%region%&c."
+    warning_title: "&c&lPROTECTED AREA"
+    warning_subtitle: "&7You cannot build here"
+    protection_enter: "&aEntering protection of: &f%owner%"
+    protection_exit: "&cLeaving protection of: &f%owner%"
+
+    # Manual
+    manual_title: "&bProtection Guide"
+    manual_author: "Server"
+    manual_content:
+      - "&lAdvancedProtection"
+      - ""
+      - "&11. Place the block"
+      - "&0Place the protection block"
+      - "&0in the center of the area."
+      - ""
+      - "&12. Manage"
+      - "&0Right-click the block"
+      - "&0to open the menu."
+      - ""
+      - "&13. Invite"
+      - "&0Add friends from the"
+      - "&0Members menu."
+    manual_received: "&aYou received the protection guide."
+    inventory_full_manual: "&cInventory full. The guide was dropped on the ground."
+
+    # GUI Messages
+    gui:
+      # Guide Book
+      guide_message:
+        - "&e--- Protection Guide ---"
+        - "&71. Place the protection block."
+        - "&72. Right-click to open menu."
+        - "&73. Add members or change flags."
+
+      # Main Menu
+      main_title: "&8Advanced Protection"
+      info_name: "&eInformation"
+      info_lore:
+        - "&7View your protection status"
+        - "&7and global settings."
+      my_protections_name: "&bMy Protections"
+      my_protections_lore:
+        - "&7List of all your"
+        - "&7active protections."
+      shop_name: "&aProtection Shop"
+      shop_lore:
+        - "&7Buy new protection blocks."
+      language_name: "&6Language"
+      language_lore:
+        - "&7Change plugin language."
+      compat_name: "&9Compatibility"
+      compat_lore:
+        - "&7Version: &f%version%"
+
+      # Shop
+      shop_title: "&8Protection Shop"
+      shop_item_name: "%color%&l%name%"
+      shop_item_lore:
+        - "&7Radius: &f%radius% blocks"
+        - "&7Level: &f%level%"
+        - ""
+        - "&7Cost: &a$%cost%"
+        - ""
+        - "&eClick to purchase!"
+      balance_name: "&6Your Balance"
+      balance_lore:
+        - "&7Current: &a$%balance%"
+      back_name: "&cBack"
+      back_lore:
+        - "&7Return to previous menu."
+
+      # Protection Menu
+      protection_title: "&8Protection %id%"
+      info_item_name: "&eRegion Info"
+      info_item_lore:
+        - "&7Level: &f%level%"
+        - "&7Radius: &f%radius%m"
+      members_item_name: "&bMembers"
+      members_item_lore:
+        - "&7Manage added players."
+      flags_item_name: "&cSettings (Flags)"
+      flags_item_lore:
+        - "&7Toggle permissions like"
+        - "&7PvP, Explosions, etc."
+      visualize_name: "&dVisualize Borders"
+      visualize_lore:
+        - "&7Show protection boundaries"
+        - "&7with particles."
+      upgrade_name: "&aUpgrade Protection"
+      upgrade_lore:
+        - "&7Upgrade to next level."
+        - "&7Cost: &a$%cost%"
+      visual_settings_name: "&5Visual Effects"
+      visual_settings_lore:
+        - "&7Change border particles."
+      expiration_msg: "&7Protections do not expire."
+
+      # Flags Menu
+      flags_title: "&8Protection Flags"
+      flag_enabled: "&aEnabled"
+      flag_disabled: "&cDisabled"
+      flag_lore:
+        - "&7Status: %status%"
+        - ""
+        - "&eClick to toggle."
+
+      # Members Menu
+      members_title: "&8Members"
+      add_member_name: "&aAdd Member"
+      add_member_lore:
+        - "&7Add an online player."
+      member_lore:
+        - "&7UUID: %uuid%"
+        - ""
+        - "&cClick to kick."
+      add_member_title: "&8Add Member"
+      add_player_lore:
+        - "&7Click to add."
+
+      # Visuals Menu
+      visual_title: "&8Border Particles"
+      particle_item_name: "&e%particle%"
+      particle_item_lore:
+        - "&7Click to select."
+        - "&7%desc%"
+        - ""
+        - "&7Cost: &a$%cost%"
+      particle_changed: "&aBorder particle changed to %particle%."
+
+      # My Protections
+      my_protections_title: "&8My Protections"
+      protection_item_name: "&aProtection %id%"
+      protection_item_lore:
+        - "&7Location: &f%location%"
+        - "&7Level: &f%level%"
+        - "&7Radius: &f%radius%m"
+        - ""
+        - "&eClick to visualize."
+
+      # Language
+      language_title: "&8Select Language"
+
+      # Protection Block Item (Given to player)
+      protection_block_name: "%color%&l%name%"
+      protection_block_lore:
+        - "&8-------------------------"
+        - "&7Official Protection Block"
+        - ""
+        - "&f  ■ Owner: &b%player%"
+        - "&f  ■ Cost: &a$%cost%"
+        - "&f  ■ Date: &7%date%"
+        - "&f  ■ Radius: %color%%radius%m"
+        - ""
+        - "&eInstructions:"
+        - "&7Place this block in the center"
+        - "&7of the zone you want to protect."
+        - "&8-------------------------"
+        - "&0Level: %level%"
+
+    # Visualizer
+    visualize_on: "&aVisualizing protection borders."
+    visualize_off: "&cVisualizer disabled."
+
+  es:
+    prefix: "&8[&bAdvancedProtection&8] &7"
+    no_permission: "&cNo tienes permiso para hacer esto."
+    no_permission_language: "&cNo tienes permiso para cambiar el idioma."
+    economy_disabled: "&cLa economía está desactivada. No puedes comprar protecciones."
+    insufficient_funds: "&cFondos insuficientes. Necesitas &a$%cost%&c."
+    visual_no_money: "&cNo tienes suficiente dinero para cambiar el efecto visual. Costo: &a$%cost%"
+    visual_bought: "&aEfecto visual comprado por &e$%cost%&a."
+    shop_error: "&cOcurrió un error al procesar la transacción."
+
+    # Interaction Messages (Moved from GUI)
+    flag_changed: "&aFlag %flag% cambiado a %status%."
+    member_kick: "&cHas expulsado a %player%."
+    member_added: "&aHas añadido a %player%."
+    unknown_player: "Desconocido"
+    protection_bought: "&a¡Compraste un %name%!"
+    upgrade_success: "&a¡Protección mejorada al nivel %level%!"
+
+    # Protection Events
+    protection_placed: "&a¡Protección colocada! &7(Click derecho para gestionar)"
+    protection_removed: "&cProtección eliminada correctamente."
+    protection_too_close: "&cNo puedes colocar una protección aquí, se solapa con otra."
+    protection_collision: "&cEsta área choca con otra protección."
+    protection_created: "&aProtección creada correctamente."
+    limit_reached: "&cHas alcanzado tu límite de protecciones (&e%current%/%max%&c)."
+    protection_cant_break: "&cNo puedes romper este bloque de protección."
+    protection_shift_break: "&cAgáchate (Shift) + Romper para eliminar la protección."
+    area_protected: "&cEsta área está protegida."
+    pvp_disabled: "&cPvP desactivado en esta área."
+    worldguard_region_conflict: "&cNo puedes crear protecciones en la región de WorldGuard: &e%region%&c."
+    warning_title: "&c&lÁREA PROTEGIDA"
+    warning_subtitle: "&7No puedes construir aquí"
+    protection_enter: "&aEntrando a zona de: &f%owner%"
+    protection_exit: "&cSaliendo de zona de: &f%owner%"
+
+    # Manual
+    manual_title: "&bGuía de Protección"
+    manual_author: "Servidor"
+    manual_content:
+      - "&lAdvancedProtection"
+      - ""
+      - "&11. Colocar"
+      - "&0Pon el bloque de protección"
+      - "&0en el centro del área."
+      - ""
+      - "&12. Gestionar"
+      - "&0Click derecho en el bloque"
+      - "&0para abrir el menú."
+      - ""
+      - "&13. Invitar"
+      - "&0Añade amigos desde el"
+      - "&0menú de Miembros."
+    manual_received: "&aHas recibido la guía de protección."
+    inventory_full_manual: "&cInventario lleno. La guía se tiró al suelo."
+
+    # GUI Messages
+    gui:
+      # Guide Book
+      guide_message:
+        - "&e--- Guía de Protección ---"
+        - "&71. Coloca el bloque."
+        - "&72. Click derecho para menú."
+        - "&73. Añade miembros o cambia flags."
+
+      # Main Menu
+      main_title: "&8Protección Avanzada"
+      info_name: "&eInformación"
+      info_lore:
+        - "&7Ver estado de protección"
+        - "&7y ajustes globales."
+      my_protections_name: "&bMis Protecciones"
+      my_protections_lore:
+        - "&7Lista de todas tus"
+        - "&7protecciones activas."
+      shop_name: "&aTienda de Protecciones"
+      shop_lore:
+        - "&7Compra nuevos bloques."
+      language_name: "&6Idioma"
+      language_lore:
+        - "&7Cambiar idioma del plugin."
+      compat_name: "&9Compatibilidad"
+      compat_lore:
+        - "&7Versión: &f%version%"
+
+      # Shop
+      shop_title: "&8Tienda de Protecciones"
+      shop_item_name: "%color%&l%name%"
+      shop_item_lore:
+        - "&7Radio: &f%radius% bloques"
+        - "&7Nivel: &f%level%"
+        - ""
+        - "&7Costo: &a$%cost%"
+        - ""
+        - "&e¡Click para comprar!"
+      balance_name: "&6Tu Saldo"
+      balance_lore:
+        - "&7Actual: &a$%balance%"
+      back_name: "&cVolver"
+      back_lore:
+        - "&7Regresar al menú anterior."
+
+      # Protection Menu
+      protection_title: "&8Protección %id%"
+      info_item_name: "&eInfo Región"
+      info_item_lore:
+        - "&7Nivel: &f%level%"
+        - "&7Radio: &f%radius%m"
+      members_item_name: "&bMiembros"
+      members_item_lore:
+        - "&7Gestionar jugadores."
+      flags_item_name: "&cAjustes (Flags)"
+      flags_item_lore:
+        - "&7Alternar permisos como"
+        - "&7PvP, Explosiones, etc."
+      visualize_name: "&dVisualizar Bordes"
+      visualize_lore:
+        - "&7Mostrar límites"
+        - "&7con partículas."
+      upgrade_name: "&aMejorar Protección"
+      upgrade_lore:
+        - "&7Subir al siguiente nivel."
+        - "&7Costo: &a$%cost%"
+      visual_settings_name: "&5Efectos Visuales"
+      visual_settings_lore:
+        - "&7Cambiar partículas."
+      expiration_msg: "&7Las protecciones no expiran."
+
+      # Flags Menu
+      flags_title: "&8Flags de Protección"
+      flag_enabled: "&aActivado"
+      flag_disabled: "&cDesactivado"
+      flag_lore:
+        - "&7Estado: %status%"
+        - ""
+        - "&eClick para alternar."
+
+      # Members Menu
+      members_title: "&8Miembros"
+      add_member_name: "&aAñadir Miembro"
+      add_member_lore:
+        - "&7Añadir jugador online."
+      member_lore:
+        - "&7UUID: %uuid%"
+        - ""
+        - "&cClick para expulsar."
+      add_member_title: "&8Añadir Miembro"
+      add_player_lore:
+        - "&7Click para añadir."
+
+      # Visuals Menu
+      visual_title: "&8Partículas de Borde"
+      particle_item_name: "&e%particle%"
+      particle_item_lore:
+        - "&7Click para seleccionar."
+        - "&7%desc%"
+        - ""
+        - "&7Costo: &a$%cost%"
+      particle_changed: "&aPartícula cambiada a %particle%."
+
+      # My Protections
+      my_protections_title: "&8Mis Protecciones"
+      protection_item_name: "&aProtección %id%"
+      protection_item_lore:
+        - "&7Ubicación: &f%location%"
+        - "&7Nivel: &f%level%"
+        - "&7Radio: &f%radius%m"
+        - ""
+        - "&eClick para visualizar."
+
+      # Language
+      language_title: "&8Seleccionar Idioma"
+
+      # Protection Block Item
+      protection_block_name: "%color%&l%name%"
+      protection_block_lore:
+        - "&8-------------------------"
+        - "&7Bloque de Protección Oficial"
+        - ""
+        - "&f  ■ Dueño: &b%player%"
+        - "&f  ■ Costo: &a$%cost%"
+        - "&f  ■ Fecha: &7%date%"
+        - "&f  ■ Radio: %color%%radius%m"
+        - ""
+        - "&eInstrucciones:"
+        - "&7Coloca este bloque en el centro"
+        - "&7de la zona a proteger."
+        - "&8-------------------------"
+        - "&0Nivel: %level%"
+
+    # Visualizer
+    visualize_on: "&aVisualizing borders."
+    visualize_off: "&cVisualizer disabled."
+
+    # Permission System Messages
+    permission_denied: "&cYou don't have permission to do that here."
+    permission_granted: "&aPermission granted to %player%: %permission%"
+    permission_revoked: "&cPermission revoked from %player%: %permission%"
+    role_assigned: "&a%player% assigned role: %role%"
+    role_list_header: "&e=== Member Permissions ==="
+    role_list_entry: "&7• &f%player% &7- &b%role%"
+    no_permissions: "&7No custom permissions"
+
+    # Tax System Messages
+    tax_paid: "&a✓ Tax paid: &e$%amount%"
+    tax_paid_next: "&7Next payment due: &f%time%"
+    tax_insufficient_funds: "&cInsufficient funds! You need: &e$%amount%"
+    tax_not_due: "&7Tax is not due yet. Next payment: &f%time%"
+    tax_warning_title: "&e⚠ Tax Due Soon"
+    tax_warning_subtitle: "&7%hours% hours remaining"
+    tax_overdue_title: "&c⚠⚠⚠ TAX OVERDUE ⚠⚠⚠"
+    tax_overdue_subtitle: "&4Pay now or lose protection!"
+    tax_deleted: "&4Your protection was deleted for non-payment"
+    tax_upcoming:
+      - "&e⚠ Tax payment upcoming:"
+      - "&7Protection: &f%name%"
+      - "&7Amount: &e$%amount%"
+      - "&7Time remaining: &c%time%"
+      - "&7Use /ap paytax to pay"
+    tax_overdue_warning:
+      - "&c⚠⚠⚠ TAX OVERDUE ⚠⚠⚠"
+      - "&7Protection: &f%name%"
+      - "&7Amount: &e$%amount%"
+      - "&7Time until deletion: &4%time%"
+      - "&e&lPAY NOW with /ap paytax!"

@@ -1,0 +1,25 @@
+name: AdvancedProtection
+version: 1.0
+main: com.crystalverse.advancedprotection.AdvancedProtection
+api-version: 1.19
+authors: [CrystalVerse]
+description: Plugin avanzado de protección de regiones.
+softdepend: [Vault, WorldGuard, PlaceholderAPI, DecentHolograms]
+
+commands:
+  advancedprotection:
+    description: Comando principal del plugin
+    aliases: [ap, protect]
+    usage: /<command> [args]
+    permission: advancedprotection.use
+
+permissions:
+  advancedprotection.admin:
+    description: Permiso para administrar todas las protecciones.
+    default: op
+  advancedprotection.use:
+    description: Permiso básico para usar el plugin.
+    default: true
+  advancedprotection.bypass:
+    description: Permiso para ignorar protecciones.
+    default: op
