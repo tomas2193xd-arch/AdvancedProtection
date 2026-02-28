@@ -1,218 +1,200 @@
+<div align="center">
+
 # ⚔️ AdvancedProtection
 
-[![Spigot](https://img.shields.io/badge/Spigot-1.19.4+-orange.svg)](https://www.spigotmc.org/)
-[![Version](https://img.shields.io/badge/version-1.4-blue.svg)](https://github.com/tomas2193xd-arch/AdvancedProtection/releases)
-[![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
-[![Discord](https://img.shields.io/badge/Discord-Tomas2193-7289DA.svg)](https://discord.gg/yourserver)
+### 🛡️ The Ultimate Land Protection Plugin for Minecraft
 
-> **The Ultimate Land Protection Plugin for Minecraft 1.19+ with Granular Permissions**
+[![Spigot](https://img.shields.io/badge/Spigot-1.19.4+-orange.svg?style=for-the-badge&logo=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAOCAYAAAAfSC3RAAAACXBIWXMAAAsTAAALEwEAmpwYAAAA+0lEQVQokZ2SzQ3CMAyFn1sGYATuDNBV2r8NIEiRkJCAFbo1SoEruJUBYATEdYcQ7YJR4iMqUi0lH+y8Z78kRIRtGJERR6YUY+u8mxHj4/kSnElrcADkAPYB7AG4IGI0OBDRlIjmAE5rcAiArFE9EcWFiIg4J6IKAGZ/YK/nRGQRsdQYLf/YaVFG5OUGuASw1dqk81GCIClFjS6rMNNaJCKqAsiyZ3l3d5Nmg4C6mQEIXBJqZg7g/NOX5Iv7qKobOeeaAPYArJnZ/Q2oP38tAPMvIc0PEbFYW3WfmZ+Z+YmZ64ioqN7l6LIK57/+GprjGOb8B/X+ATw/hfv9GwB0AAAAAElFTkSuQmCC)](https://www.spigotmc.org/resources/advancedprotection.130494/)
+[![Version](https://img.shields.io/badge/version-1.5-blue.svg?style=for-the-badge)](https://github.com/tomas2193xd-arch/AdvancedProtection/releases/latest)
+[![Java](https://img.shields.io/badge/Java-17+-red.svg?style=for-the-badge&logo=openjdk)](https://adoptium.net/)
+[![License](https://img.shields.io/badge/license-All%20Rights%20Reserved-important.svg?style=for-the-badge)](LICENSE)
 
-![Banner](https://imgur.com/a/AVosdM3)
+<br>
 
-📹 **[Watch Demo Video](https://youtu.be/nc31xFtYS-c)** | 💬 **Discord:** Tomas2193
-
----
-
-## ✨ Features
-
-### 🛡️ Advanced Protection System
-- 6 Upgradeable Protection Levels (Coal → Obsidian)
-- Dynamic radius expansion (10m to 100m)
-- Per-level customizable costs and materials
-- WorldGuard integration
-- Collision detection
-
-### 👥 Granular Permission System
-- Individual member permissions
-- Predefined roles (Visitor, Member, Builder, Moderator, Co-Owner)
-- Custom permission combinations
-- Full permission hierarchy
-
-### 💰 Tax & Rent System
-- Automatic tax collection
-- Percentage or fixed-rate modes
-- Custom tax rates per level
-- Grace period system
-- Automatic notifications
-
-### 🎨 Visual Effects
-- 7 customizable particle effects
-- Holographic border visualization
-- 3D rotating crystal displays
-- Real-time TextDisplay holograms
-- DecentHolograms support
-
-### 🖥️ Professional GUI
-- Intuitive inventory menus
-- Shop system
-- Member management
-- Flag configuration
-- Visual effect selector
-- Admin panel
+> **Protege tu tierra con estilo.** Sistema de protección avanzado con GUI profesional, efectos visuales, sistema de impuestos, permisos granulares, sistema de efectos de zona, traducción completa y mucho más.
 
 ---
 
-## 📦 Installation
-
-1. Download `AdvancedProtection-1.0.jar`
-2. Place in `/plugins` folder
-3. Install [Vault](https://www.spigotmc.org/resources/vault.34315/) (Required)
-4. Restart server
-5. Configure `config.yml`
-6. Reload with `/ap reload`
-
-### Optional Dependencies
-- **WorldGuard** - Enhanced compatibility
-- **PlaceholderAPI** - Placeholder support
-- **DecentHolograms** - Alternative hologram engine
+### 📥 [Descargar Última Versión](https://github.com/tomas2193xd-arch/AdvancedProtection/releases/latest) · 🌐 [Página en SpigotMC](https://www.spigotmc.org/resources/advancedprotection.130494/) · 💬 Discord: `Tomas2193`
 
 ---
 
-## 📋 Commands
+</div>
 
-### Player Commands
-```
-/ap menu           - Open main menu
-/ap visualize      - Show protection borders
-/ap trust <player> - Add member
-/ap untrust <player> - Remove member
-/ap trustlist      - View members
-/ap rename <name>  - Rename protection
-/ap clearname      - Remove name
-/ap paytax         - Pay tax
-/ap help           - Command list
-```
+## ✨ Características Principales
 
-### Admin Commands
-```
-/ap reload    - Reload config
-/ap logs      - View logs
-/ap manager   - Admin panel
-```
+<table>
+<tr>
+<td width="50%">
+
+### 🛡️ Protección Avanzada
+- **6 niveles** de protección (Carbón → Obsidiana)
+- Radio dinámico de 10m a 100m
+- Detección de colisiones inteligente
+- Integración con WorldGuard
+- Sistema anti-overlap
+
+</td>
+<td width="50%">
+
+### 👥 Permisos Granulares
+- 10 tipos de permisos individuales
+- 5 roles predefinidos (Visitante → Co-Dueño)
+- Roles personalizables por miembro
+- Compatible con LuckPerms
+- GUI visual para gestionar permisos
+
+</td>
+</tr>
+<tr>
+<td>
+
+### ⚡ Efectos de Zona
+- Velocidad, Fuerza, Haste, Salto, etc.
+- Sistema de compra con economía
+- Niveles mejorables por efecto
+- Auto-aplicación a jugadores en la zona
+- 12 efectos disponibles
+
+</td>
+<td>
+
+### 🎨 Efectos Visuales
+- 7 partículas personalizables
+- Hologramas 3D con cristales rotativos
+- Visualización de bordes en tiempo real
+- Soporte para DecentHolograms
+- TextDisplay nativo (1.19.4+)
+
+</td>
+</tr>
+<tr>
+<td>
+
+### 💰 Sistema de Impuestos
+- Cobro automático configurable
+- Tasas por porcentaje o fijas
+- Período de gracia antes de eliminación
+- Notificaciones multi-nivel
+- Aviso al iniciar sesión
+
+</td>
+<td>
+
+### 🌍 Multi-Idioma
+- Español e Inglés incluidos
+- **100% traducible** desde config.yml
+- Selector de idioma en el menú
+- Todos los GUIs se traducen al instante
+- Fácil para agregar tu propio idioma
+
+</td>
+</tr>
+</table>
 
 ---
 
-## 🔐 Permissions
+## 🖥️ Sistema de GUI Profesional
 
-| Permission                         | Description        | Default |
-| ---------------------------------- | ------------------ | ------- |
-| `advancedprotection.use`           | Basic usage        | `true`  |
-| `advancedprotection.admin`         | Full admin access  | `op`    |
-| `advancedprotection.admin.logs`    | View logs          | `op`    |
-| `advancedprotection.admin.manager` | Admin panel        | `op`    |
-| `advancedprotection.bypass`        | Bypass protections | `op`    |
-
-**For detailed permission guide, see [PERMISSIONS.txt](PERMISSIONS.txt)**
+| Menú                 | Descripción                         |
+| -------------------- | ----------------------------------- |
+| 🏠 **Menú Principal** | Acceso a todas las funciones        |
+| 🛒 **Tienda**         | Comprar protecciones con economía   |
+| 👤 **Miembros**       | Gestionar miembros y permisos       |
+| 🔧 **Flags**          | PVP, Mob Spawning, TNT, Fuego, etc. |
+| ⚡ **Efectos**        | Comprar/mejorar efectos de zona     |
+| 🎨 **Partículas**     | Cambiar efecto visual del borde     |
+| 🌍 **Idioma**         | Cambiar idioma del plugin           |
+| 👑 **Admin Panel**    | Gestión total con paginación        |
 
 ---
 
-## ⚙️ Configuration
+## 📋 Comandos
 
-### Protection Levels
-```yaml
-protections:
-  1:
-    name: "&7Coal Protection"
-    material: COAL_BLOCK
-    radius: 10
-    cost: 100.0
-  # ... up to level 6
+### Jugadores
 ```
-
-### Tax System
-```yaml
-tax_system:
-  enabled: false
-  interval_hours: 24
-  rate_mode: 'percentage'
-  tax_rate: 5.0
-  grace_period_hours: 72
+/ap menu              Abrir menú principal
+/ap visualize         Ver bordes de protección
+/ap trust <jugador>   Añadir miembro
+/ap untrust <jugador> Eliminar miembro
+/ap trustlist         Ver lista de miembros
+/ap rename <nombre>   Renombrar protección
+/ap clearname         Eliminar nombre
+/ap tp [id]           Teletransportarse (seguro)
+/ap effects           Menú de efectos de zona
+/ap paytax            Pagar impuestos
+/ap help              Lista de comandos
 ```
 
-### Permissions
-```yaml
-permissions:
-  enabled: true
-  default_role: "member"
-  roles:
-    member:
-      permissions:
-        - BUILD
-        - INTERACT
-        - CONTAINER_ACCESS
+### Administradores
+```
+/ap reload                       Recargar configuración
+/ap give <jugador> <nivel> [x]   Dar protección a jugador
+/ap logs                         Ver historial
+/ap manager                      Panel de administración
 ```
 
-**Full config example: [config.yml](src/main/resources/config.yml)**
+---
+
+## 🔐 Permisos
+
+| Permiso                               | Descripción                    | Default |
+| ------------------------------------- | ------------------------------ | ------- |
+| `advancedprotection.use`              | Uso básico del plugin          | `true`  |
+| `advancedprotection.tp`               | Teletransportar a protecciones | `true`  |
+| `advancedprotection.effects`          | Acceso al menú de efectos      | `true`  |
+| `advancedprotection.admin`            | Acceso total de admin          | `op`    |
+| `advancedprotection.admin.give`       | Dar protecciones               | `op`    |
+| `advancedprotection.admin.logs`       | Ver logs                       | `op`    |
+| `advancedprotection.admin.manager`    | Panel de administración        | `op`    |
+| `advancedprotection.bypass`           | Bypass de protecciones         | `op`    |
+| `advancedprotection.tp.bypass_warmup` | Sin espera al TP               | `op`    |
+| `advancedprotection.limit.X`          | Límite de protecciones         | `true`  |
 
 ---
 
-## 🎯 How to Use
+## ⚙️ Requisitos
 
-### For Players
-1. Open `/ap menu`
-2. Purchase a protection level
-3. Place the protection block
-4. Right-click to configure
-5. Add members and customize
+| Requisito     | Versión                 |
+| ------------- | ----------------------- |
+| **Minecraft** | 1.19.4+                 |
+| **Java**      | 17+                     |
+| **Server**    | Spigot / Paper / Purpur |
+| **Vault**     | Requerido               |
 
-### For Admins
-1. Configure costs and radii
-2. Enable/disable systems
-3. Set up roles
-4. Manage via `/ap manager`
-5. Monitor with `/ap logs`
-
----
-
-## 🔧 Technical Details
-
-- **Compatibility:** Minecraft 1.19.4+
-- **Server Software:** Spigot, Paper, Purpur
-- **Storage:** JSON file-based
-- **API Version:** 1.19
-- **Performance:** Optimized for large servers
+### Dependencias Opcionales
+- **WorldGuard** — Integración con regiones
+- **PlaceholderAPI** — Placeholders
+- **LuckPerms** — Permisos avanzados
+- **DecentHolograms** — Motor de hologramas alternativo
 
 ---
 
-## 📞 Support
+## 📥 Instalación
 
-- **Spigot:** [Plugin Page](#)
-- **Discord:** Coming Soon
-- **Issues:** [GitHub Issues](#)
-- **Wiki:** Coming Soon
-
----
-
-## 📸 Screenshots
-
-*Coming Soon*
+1. **Descarga** el JAR desde [Releases](https://github.com/tomas2193xd-arch/AdvancedProtection/releases/latest)
+2. **Coloca** el archivo en la carpeta `/plugins` de tu servidor
+3. **Instala** [Vault](https://www.spigotmc.org/resources/vault.34315/) (requerido)
+4. **Reinicia** el servidor
+5. **Configura** el `config.yml` a tu gusto
+6. **Recarga** con `/ap reload`
 
 ---
 
-## 🌟 Star History
+## 📞 Soporte
 
-If you like this plugin, please give it a star!
-
----
-
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
----
-
-## 💖 Credits
-
-**Developed by:** CrystalVerse Team  
-**Version:** 1.0  
-**Last Updated:** December 2024
+- 🌐 **SpigotMC:** [Página del Plugin](https://www.spigotmc.org/resources/advancedprotection.130494/)
+- 💬 **Discord:** `Tomas2193`
+- 🐛 **Issues:** [Reportar Bug](https://github.com/tomas2193xd-arch/AdvancedProtection/issues)
 
 ---
 
 <div align="center">
 
-**⭐ If you enjoy this plugin, please leave a review! ⭐**
+### ⭐ Si te gusta el plugin, ¡deja una review en SpigotMC! ⭐
 
-Made with ❤️ by CrystalVerse
+**Desarrollado con ❤️ por CrystalVerse**
+
+*Versión 1.5 · Febrero 2025*
 
 </div>

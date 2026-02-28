@@ -2,6 +2,59 @@
 
 All notable changes to AdvancedProtection will be documented in this file.
 
+## [1.5.0] - 2025-02-28
+
+### 🎉 Major Update — Effects System, Safe Teleport & Full i18n
+
+#### ✨ New Features
+- **Zone Effects System** ⚡
+  - 12 purchasable potion effects (Speed, Haste, Strength, Jump, Regeneration, Resistance, Fire Resistance, Water Breathing, Night Vision, Saturation, Dolphin's Grace, Conduit Power)
+  - Upgradeable effect levels with configurable costs
+  - Auto-application to all players inside protection zone
+  - Per-effect permissions (advancedprotection.effects.speed, etc.)
+  - Professional GUI with buy/upgrade/remove functionality
+  - Members-only mode option
+
+- **Safe Teleport System** 🏠
+  - `/ap tp [id]` now finds a SAFE location above the protection
+  - 4-strategy algorithm: scan upward → highest block → adjacent blocks → world top
+  - Never suffocates players, even for underground protections
+  - Configurable warmup, cooldown, and cost
+  - Bypass warmup permission for admins
+
+- **100% Translation System** 🌍
+  - ALL text in the plugin is now translatable
+  - 50+ new message keys in both Spanish and English
+  - Effect names translate per language
+  - Admin GUI fully translatable (roles, permissions, pagination)
+  - Member permission messages translatable
+  - Tax system messages translatable
+
+- **`/ap give` Command** 🎁
+  - Give protection blocks to players as admin
+  - Syntax: `/ap give <player> <level> [amount]`
+  - Permission: `advancedprotection.admin.give`
+
+#### 🐛 Bug Fixes
+- Fixed hardcoded English text appearing in Spanish mode
+- Fixed admin GUI showing untranslated strings
+- Fixed permission toggle messages not following language
+- Fixed role names not translating in member menu
+- Fixed particle error message hardcoded in English
+- Fixed tax messages using hardcoded English
+- Fixed max level error not using config message
+- Removed unused imports
+
+#### 🔧 Technical Improvements
+- EffectsManager now reads effect names from language config
+- Removed static getEffectDisplayName() — now instance-based
+- All ChatColor hardcoded messages replaced with getMessage()
+- Clean code with no unused imports
+- Full LuckPerms integration for permissions
+- New permissions: tp, effects, give, limits, language
+
+---
+
 ## [1.4.0] - 2024-12-04
 
 ### 🎉 Major Update - Granular Permissions System
